@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RNI</title>
+</head>
+<body>
+<script src="dist/RNI.browser.dev.js"></script>
+<script>
+	RNIDev(function (nativeInvoke) {
+		nativeInvoke.on('camera', function (e) {
+			e.error('camera.error');
+		});
+
+		nativeInvoke.on('notification/getRegistrationID', function (e) {
+			e.success('137akl1234');
+		});
+	});
+
+</script>
+
+<script src="dist/RNI.browser.min.js"></script>
+<script>
+
+
+	setTimeout(function () {
+		RNI.post({ type: 'camera', data: { a: 1, b: 2, c: 3, } }, function (result) {
+			console.info('RNI success response:' + result);
+		}, function (result) {
+			console.info('RNI error response:' + result);
+		});
+
+
+		RNI.post('notification/getRegistrationID', function (result) {
+			console.info('RNI success response:' + result);
+		}, function (result) {
+			console.info('RNI error response:' + result);
+		});
+	}, 1000);
+</script>
+</body>
+</html>
