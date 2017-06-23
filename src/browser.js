@@ -17,7 +17,7 @@ let RNI = window.RNI;
 			window.RNI.onError && window.RNI.onError(`RNI error response:${JSON.stringify(e)}`, e);
 		};
 		window.RNI = RNI;
-		window.TESTINNERRNI = innerRNI;
+		window.INNERRNI = innerRNI;
 	}
 })
 (function () {
