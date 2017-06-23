@@ -1,17 +1,84 @@
 
 ## RNI Web 端 API 文档
-在web端通过 RNI (React Native Invoke) 调用平台（android、ios）的API，让Web端能开发出更多业务类型的应用。以请求响应的方式将Native接口封装了
+在web端通过 RNI (React Native Invoke) 调用平台（android、ios）的API，让Web端能开发出更多业务类型的应用。以请求、响应的方式将Native端的接口封装给Web端使用。
+
+## API说明
+
+
+#### RNI.on(eventType,handle)
+
+侦听来自RN的事件，现在只有ready事件
+
+##### 参数
+> eventType(String):事件类型
+>
+> handle(Function(event)): 事件处理函数
+>
+> > ###### event:
+> >        {
+> >               id: Number,
+> >               type: String,
+> >               success: Function,
+> >               error: Function,
+> >               data: Object
+> >        }
+>
+
+##### Native端例子
+```
+RNI.on('deviceInfo', function(e){
+  //e.error('deviceInfo error');
+  //e.success('deviceInfo success');
+});
+
+```
+
+----------
+
+#### RNI.post(request,[success], [error])
+
+向RN发起API调用请求
+
+##### 参数
+> request(String|Object):调用API的请求
+>
+> > ###### Object({type : String , data : Object})
+>
+> success(Function): 请求成功的回调函数
+>
+> error(Function): 请求异常的回调函数
+
+
+##### WEB端例子
+```
+RNI.post('deviceInfo', function(result){
+  //成功
+},function(error){
+  //失败
+});
+
+//  或者
+
+RNI.post({
+  type : 'deviceInfo'
+}, function(result){
+   //成功
+},function(error){
+  //失败
+});
+```
+
+----------
+
 
 安装
 ```
 npm install --save w-rn-invoke
-
 ```
 
 引用
 ```
 import RNI from 'w-rn-invoke/browser';
-
 ```
 
 web端调试
@@ -62,72 +129,4 @@ setTimeout(function () {
 ```
 
 
-
-
-## API说明
-
-
-#### RNI.on(eventType,handle)
-
-侦听来自RN的事件，现在只有ready事件
-
-##### 参数
-> eventType(String):事件类型
->
-> handle(Function(event)): 事件处理函数
->
-> > ###### event:{
-> >               id: Number,
-> >               type: String,
-> >               success: Function,
-> >               error: Function,
-> >               data: Object
-> >        }
->
-
-##### 例子
-```
-RNI.on('deviceInfo', function(e){
-  //e.error('deviceInfo error');
-  //e.success('deviceInfo success');
-});
-
-```
-
-----------
-
-#### RNI.post(request,[success], [error])
-
-向RN发起API调用请求
-
-##### 参数
-> request(String|Object):调用API的请求
->
-> > ###### Object({type : String , data : Object})
->
-> success(Function): 请求成功的回调函数
->
-> error(Function): 请求异常的回调函数
-
-
-##### 例子
-```
-RNI.post('deviceInfo', function(result){
-  //成功
-},function(error){
-  //失败
-});
-
-//  或者
-
-RNI.post({
-  type : 'deviceInfo'
-}, function(result){
-   //成功
-},function(error){
-  //失败
-});
-```
-
-----------
 
