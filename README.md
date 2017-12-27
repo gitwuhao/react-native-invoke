@@ -119,6 +119,16 @@ RNI.post({
 },function(error){
   //失败
 });
+
+//  Promise
+
+RNI.post({
+    type: 'camera'
+}).then(function(result) {
+    //成功
+}).catch(function(error) {
+    //失败
+});
 ```
 
 ----------
